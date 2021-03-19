@@ -1,0 +1,12 @@
+{
+  "name": "pokidex_example",
+  "displayName": "pokidex_example",
+  "expo": {
+    "name": "pokidex_example",
+    "slug": "pokidex_example",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
