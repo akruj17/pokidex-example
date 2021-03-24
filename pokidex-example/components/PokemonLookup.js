@@ -1,11 +1,34 @@
 import React, { useState} from 'react';
-import { View, Text } from 'react-native'
+import { View, Text, TextInput, Button } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function PokemonLookup() {
+    const [text, setText] = useState('')
+    const [info, setPokemonInfo] = useState('')
     return(
-        <Text>
-            Pikachu
-        </Text>
+        <View>
+            <TextInput
+                placeholder="Enter a Pokemon name"
+                value={text}
+                onChangeText={setText}
+            />
+            <Button 
+                title="Search"
+                onPress={() => get_pokemon_by_name(text, setPokemonInfo)}
+            />
+            <Text>{info}</Text>
+        </View>
     );
+}
+
+function get_pokemon_by_name(name, updateMethod) {
+    const ENDPOINT = 'https://pokeapi.co/api/v2/pokemon-species/'
+    const url = ENDPOINT + name.toLowerCase() + '/'
+    fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+            updateMethod(json.name)
+        }).catch(() => {
+            updateMethod("No matching Pokemon")
+        });
 }
