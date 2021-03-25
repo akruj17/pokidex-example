@@ -4,12 +4,22 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function RandomPokemon() {
     const [name, setName] = useState("Get a Pokemon!");
+    const navigation = useNavigation();
+    const route = useRoute();
     return(
         <View>
             <Text>{name}</Text>
             <Button
                 title="Random Pokemon"
                 onPress={() => get_random_pokemon(setName)}
+            />
+            <Button
+                title="Look up a My Pokemon"
+                onPress={() => navigation.navigate("PokemonLookup", { pokemonName: name })}
+            />
+            <Button
+                title="Look up a Pokemon"
+                onPress={() => navigation.navigate("PokemonLookup", { pokemonName: null})}
             />
         </View>
         
