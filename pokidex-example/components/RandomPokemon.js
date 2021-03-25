@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import { View, Text, Button } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
+import PokemonInfo from './PokemonInfo';
 
 export default function RandomPokemon() {
     const [name, setName] = useState("Get a Pokemon!");
@@ -8,10 +9,9 @@ export default function RandomPokemon() {
     const route = useRoute();
     return(
         <View>
-            <Text>{name}</Text>
             <Button
-                title="Random Pokemon"
-                onPress={() => get_random_pokemon(setName)}
+                title="Get Random Pokemon"
+                onPress={() => get_random_pokemon(setPokemonInfo)}
             />
             <Button
                 title="Look up a My Pokemon"
@@ -34,7 +34,7 @@ function get_random_pokemon(updateMethod) {
     fetch(url)
         .then((response) => response.json())
         .then((json) => {
-            updateMethod(json.name)
+            updateMethod(json)
         });
 }
 

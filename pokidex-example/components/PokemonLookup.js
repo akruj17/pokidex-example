@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
+import PokemonInfo from './PokemonInfo';
+
 
 export default function PokemonLookup() {
     const [text, setText] = useState('')
