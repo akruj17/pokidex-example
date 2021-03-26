@@ -1,21 +1,17 @@
 import React, { useState} from 'react';
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, StyleSheet } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
-import PokemonInfo from './PokemonInfo';
 
 export default function RandomPokemon() {
-    const [name, setName] = useState("Get a Pokemon!");
+    const [pokemonName, setPokemonName] = useState("Get a Pokemon!");
     const navigation = useNavigation();
-    const route = useRoute();
+
     return(
         <View>
             <Button
-                title="Get Random Pokemon"
-                onPress={() => get_random_pokemon(setPokemonInfo)}
-            />
-            <Button
-                title="Look up a My Pokemon"
-                onPress={() => navigation.navigate("PokemonLookup", { pokemonName: name })}
+                color="#ff0000"
+                title="Get a Random Pokemon"
+                onPress={() => get_random_pokemon(setPokemonName, navigation)}
             />
             <Button
                 title="Look up a Pokemon"
@@ -26,7 +22,7 @@ export default function RandomPokemon() {
     );
 }
 
-function get_random_pokemon(updateMethod) {
+function get_random_pokemon(updateMethod, navigation) {
     const ENDPOINT = 'https://pokeapi.co/api/v2/pokemon-species/'
     // choose a random index between 1 and 100
     const random_idx = Math.floor(Math.random() * Math.floor(100)) + 1;
@@ -34,7 +30,18 @@ function get_random_pokemon(updateMethod) {
     fetch(url)
         .then((response) => response.json())
         .then((json) => {
-            updateMethod(json)
+            updateMethod(json.name)
+            navigation.navigate("PokemonLookup", { pokemonName: json.name})
         });
 }
+
+const styles = StyleSheet.create({
+    button: {
+        flex: 1,
+        textAlign: 'center',
+        fontSize: 100,
+        marginBottom: 30,
+        backgroundColor: '#ff0000'
+    }
+  });
 
